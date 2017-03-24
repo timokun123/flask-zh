@@ -3,6 +3,7 @@ from flask import Flask,render_template
 from flask_script import Manager
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.moment import Moment
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -12,7 +13,7 @@ moment = Moment(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html',current_time=datetime.utcnow())
 
 
 @app.route('/user/<name>')
