@@ -2,11 +2,13 @@
 from flask import Flask,render_template
 from flask_script import Manager
 from flask.ext.bootstrap import Bootstrap
+from flask.ext.moment import Moment
 
 app = Flask(__name__)
 
 manager = Manager(app)
 bootstrap = Bootstrap(app)
+moment = Moment(app)
 
 @app.route('/')
 def index():
