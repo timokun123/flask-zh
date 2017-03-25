@@ -1,12 +1,13 @@
-#coding = utf-8
+ #!/usr/bin/python
+ #-*-coding:utf-8 -*-
 from flask import Flask,render_template
 from flask_script import Manager
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.moment import Moment
 from datetime import datetime
 from flask.ext.wtf import Form
-from wtforms import StringField,SumbitField
-from wtforms.validators import Required
+from wtforms import StringField,SubmitField
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -16,8 +17,8 @@ bootstrap = Bootstrap(app)
 moment = Moment(app)
 
 class NameForm(Form):
-    name = StringField('请输入您的名字：',validators=[DataRequired()])
-    submit = SumbitField('Submit')
+    name = StringField('What is your name?',validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 @app.route('/',methods=['GET','POST'])
 def index():
