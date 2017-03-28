@@ -6,11 +6,11 @@
 {% block page_content %}
 <div class="page-header">
     <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
-    <% if not known %>
-    <p>很高兴遇见你！</p>
-    <% else %>
-    <p>很高兴再次相遇！</p>
-    <% endif %>
+    {% if not known %}
+    <p>很高兴遇见你!</p>
+    {% else %}
+    <p>欢迎再次回来!</p>
+    {% endif %}
 </div>
 {{ wtf.quick_form(form) }}
 <p>当地日期与时间是{{ moment(current_time).format('YYYY年M月D日, h:mm:ss a') }}.</p>
