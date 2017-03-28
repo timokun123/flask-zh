@@ -48,6 +48,7 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
 def make_shell_context():
     return dict(app=app,db=db,User=User,Role=Role)
 manager.add_command("shell",Shell(make_context=make_shell_context))
