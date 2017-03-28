@@ -10,7 +10,7 @@ from flask.ext.wtf import Form
 from wtforms import StringField,SubmitField
 from wtforms.validators import DataRequired
 from flask.ext.sqlalchemy import SQLAlchemy
-
+from flask.ext.migrate import Migrate,MigrateCommand
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -25,6 +25,7 @@ db = SQLAlchemy(app)
 manager = Manager(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
+migrate = Migrate(app,db)
 
 class NameForm(Form):
     name = StringField('What is your name?',validators=[DataRequired()])
@@ -50,6 +51,7 @@ class User(db.Model):
 def make_shell_context():
     return dict(app=app,db=db,User=User,Role=Role)
 manager.add_command("shell",Shell(make_context=make_shell_context))
+manager.add_command("db",MigrateCommand)
 
 @app.route('/',methods=['GET','POST'])
 def index():
