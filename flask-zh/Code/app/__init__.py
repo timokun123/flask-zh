@@ -1,17 +1,17 @@
 #!/usr/bin/env python
-#coding = utf-8
 
-from flask import Flask,render_template
+
+from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.mail import Mail
 from flask.ext.moment import Moment
 from flask.ext.sqlalchemy import SQLAlchemy
-from config import Config
+from config import config
 
-bootstrap = Bootstrap(app)
-mail = Mail(app)
-moment = Moment(app)
-db = SQLAlchemy(app)
+bootstrap = Bootstrap()
+mail = Mail()
+moment = Moment()
+db = SQLAlchemy()
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -25,6 +25,6 @@ def create_app(config_name):
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
-    #附加路由和自定义的错误界面
+
 
     return app
