@@ -6,6 +6,12 @@ from .forms import LoginForm, RegistrationForm, ChangePasswordForm, PasswordRese
 from .. import db
 from ..email import send_email
 
+@main.route('/user/<username>')
+def user(username):
+    user = User.query.filter_by(username = username).first()
+    if user is None:
+        abort(404)
+    return render_template('user.html',user=user)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -46,11 +52,11 @@ def confirm(token):
 
 @auth.before_app_request
 def before_request():
-    if current_user.is_authenticated \
-            and not current_user.confirmed \
-            and request.endpoint[:5] != 'auth.' \
-            and request.endpoint != 'static':
-        return redirect(url_for('auth.unconfirmed'))
+    if current_user.is_authenticated():
+        current_user.ping()
+        if  not current_user.confirmed \
+            and request.endpoint[:5] != 'auth.':
+            return redirect(url_for('auth.unconfirmed'))
 
 @auth.route('/unconfirmed')
 def unconfirmed():
